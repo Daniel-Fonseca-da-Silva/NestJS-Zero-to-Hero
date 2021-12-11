@@ -13,8 +13,8 @@ export class TasksService {
   createTask(title: string, description: string): Task {
     const task: Task = {
       id: uuid(),
-      title: '',
-      description: '',
+      title,
+      description,
       status: TaskStatus.OPEN,
     };
 
