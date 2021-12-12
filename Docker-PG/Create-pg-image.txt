@@ -1,0 +1,6 @@
+ docker run --name postgres-nest -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres -> create docker image of database postgres
+docker container ls -> Show if docker image running
+docker container start postgres-nest -> start
+docker container stop postgres-nest -> Stop
+docker container rm postgres-nest -> Remove
+
