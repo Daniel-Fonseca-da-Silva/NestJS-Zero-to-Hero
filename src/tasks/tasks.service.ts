@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  HttpCode,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { TaskStatus } from './task-status.enum';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
@@ -48,10 +53,15 @@ export class TasksService {
     return this.tasksRepository.createTask(createTaskDto);
   }
 
-  // deleteTask(id: string): void {
-  //   const found = this.getTaskById(id);
-  //   this.tasks = this.tasks.filter((task) => task.id !== found.id);
-  // }
+  async deleteTask(id: string): Promise<void> {
+    const found = await this.tasksRepository.delete(id);
+    console.log(found);
+
+    if (found.affected === 0) {
+      throw new NotFoundException(`This task id ${id} was not found more`);
+    }
+  }
+
   // updateTaskStatus(id: string, status: TaskStatus) {
   //   const found = this.getTaskById(id);
   //   found.status = status;
