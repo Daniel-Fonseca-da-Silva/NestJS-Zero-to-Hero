@@ -19,7 +19,7 @@ export class TasksService {
   }
 
   async getTaskById(id: string, user: User): Promise<Task> {
-    const found = await this.tasksRepository.findOne({ where: { id, user } });
+    const found = await this.tasksRepository.findOne({ id, user });
     if (!found) {
       throw new NotFoundException(
         `Don't possible to find this task with id ${id}`,
@@ -32,8 +32,8 @@ export class TasksService {
     return this.tasksRepository.createTask(createTaskDto, user);
   }
 
-  async deleteTask(id: string): Promise<void> {
-    const found = await this.tasksRepository.delete(id);
+  async deleteTask(id: string, user: User): Promise<void> {
+    const found = await this.tasksRepository.delete({ id, user });
     console.log(found);
 
     if (found.affected === 0) {
